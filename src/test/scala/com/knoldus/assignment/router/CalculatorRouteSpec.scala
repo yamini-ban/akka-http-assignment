@@ -6,6 +6,7 @@ import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.knoldus.assignment.JsonSupport
 import com.knoldus.assignment.model.PostRequest
 import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.concurrent.ScalaFutures._
 
 class CalculatorRouteSpec extends FlatSpec with ScalatestRouteTest with Matchers with JsonSupport{
 
