@@ -18,7 +18,7 @@ class CalculatorRouteSpec extends FlatSpec with ScalatestRouteTest with Matchers
   behavior of "route in CalculatorRoute"
     it should("return value after performing the operation.") in {
       Post("https://localhost:8080/calculator").withEntity(entity) ~> CalculatorRoute.route ~> check {
-        response shouldEqual 88
+        responseAs[String] shouldEqual "88"
       }
   }
 }
