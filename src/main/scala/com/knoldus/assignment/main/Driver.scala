@@ -1,13 +1,13 @@
-package com.knoldus.assignment
+package com.knoldus.assignment.main
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
+import com.knoldus.assignment.JsonSupport
 import com.knoldus.assignment.router.{CalculatorRoute, HelloRoute}
-import spray.json.{DefaultJsonProtocol, JsonWriter}
+import com.typesafe.config.ConfigFactory
 
 import scala.io.StdIn
 
@@ -20,12 +20,11 @@ object Driver extends App with JsonSupport {
 
   val route: Route = {
     HelloRoute.route ~ CalculatorRoute.route
-
   }
 
   // `route` will be implicitly converted to `Flow` using `RouteResult.route2HandlerFlow`
-  val ip = "localhost"
-  val port = 8080
+  val ip = ConfigFactory.load().getString("host")
+  val port = ConfigFactory.load().getString("port").toInt
   val bindingFuture = Http().bindAndHandle(route, ip, port)
   StdIn.readLine() // let it run until user presses return
   bindingFuture

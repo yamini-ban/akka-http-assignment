@@ -3,7 +3,7 @@ package com.knoldus.assignment.router
 import akka.http.scaladsl.server.Directives.{complete, get, parameters, path}
 import akka.http.scaladsl.server.Route
 import com.knoldus.assignment.JsonSupport
-import com.knoldus.assignment.model.GetResponse
+import com.knoldus.assignment.model.HelloResponse
 
 object HelloRoute extends JsonSupport{
   val route: Route = {
@@ -11,7 +11,7 @@ object HelloRoute extends JsonSupport{
       path("hello") {
         parameters('name, 'message) {
           (name, message) => {
-            complete(GetResponse(name, message))
+            complete(HelloResponse(name, message))
           }
         }
       }
